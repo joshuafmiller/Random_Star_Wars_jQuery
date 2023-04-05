@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Starwars Character</title>
+  </head>
+  <body>
+    <h1>Starwars Characters!</h1>
+    <h3>Press the button to show a random Starwars Character!</h3>
+    <button>Get Character</button>
+    <h2 class="name"></h2>
+    <img class="image" src="" alt=""">
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("button").on("click", function () {
+          const number = Math.ceil(Math.random() * 87);
+          console.log(number);
+
+          $.get(
+            `https://akabab.github.io/starwars-api/api/id/${number}.json`,
+            function (data) {
+              console.log(data);
+              const name = data.name;
+              let image = data.image;
+              $(".name").text(`${name}`);
+              $(".image").attr("src", `${image}`);
+              $(".image").on("error", function () {
+                $(".image").attr("src", "ellie_insta.png");
+              });
+            }
+          );
+        });
+      });
+    </script>
+  </body>
+</html>
